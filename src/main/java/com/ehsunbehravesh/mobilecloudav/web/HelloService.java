@@ -6,7 +6,7 @@
 
 package com.ehsunbehravesh.mobilecloudav.web;
 
-import com.ehsunbehravesh.mobilecloudav.HelloBean;
+import com.ehsunbehravesh.mobilecloudav.ejb.HelloBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
