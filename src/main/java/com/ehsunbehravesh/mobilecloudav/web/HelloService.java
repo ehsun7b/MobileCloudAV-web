@@ -6,12 +6,17 @@
 
 package com.ehsunbehravesh.mobilecloudav.web;
 
+import com.ehsunbehravesh.mobilecloudav.ejb.DefaultScanBean;
 import com.ehsunbehravesh.mobilecloudav.ejb.HelloBean;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -21,8 +26,11 @@ import javax.ws.rs.Produces;
 @Path("service")
 public class HelloService {
 
-  @Inject 
+  @EJB
   private HelloBean bean;
+  
+  @EJB
+  private DefaultScanBean scanner;
   
   @GET
   @Path("hello")
@@ -31,7 +39,12 @@ public class HelloService {
     return bean.say();
   }
 
-    // Add business logic below. (Right-click in editor and choose
-  // "Insert Code > Add Business Method")
-  
+  @POST
+  @Path("upload")
+  @Consumes("*/*")
+  @Produces(MediaType.TEXT_PLAIN)
+  public String uploadFile() {
+    
+    return bean.say();
+  }  
 }
