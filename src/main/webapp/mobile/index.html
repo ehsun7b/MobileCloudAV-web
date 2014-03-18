@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="js/libs/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.css" />
+    <script src="js/libs/jquery/jquery.js"></script>    
+    <script src="js/libs/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>MobileCloudAV</title>
+  </head>
+  <body>
+
+    <div id="pageHome" data-role="page">
+      <!-- header -->
+      <div data-role="header" data-id="headerH" data-theme="a">
+        <h2>Anti Virus</h2>
+      </div>
+
+      <!-- content -->
+      <div data-role="content">
+        <form id="frmScan" method="post" enctype="multipart/form-data" action="/MobileCloudAV-web/rest/scanner/scan">
+          <div data-role="fieldcontain">
+            <label for="file">File:</label>
+            <input type="file" name="file" id="file"/>                        
+          </div>
+          <input type="submit" value="Scan"/>      
+        </form>
+        <div id="board" style="margin: 10px"></div>
+      </div>
+
+      <script>
+        $(document).ready(function() {
+
+          $("#file").on("change", function() {
+            $("#board").html("");
+          });
+
+          $("#frmScan").submit(function() {
+            var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none" />');
+            $("body").append(iframe);
+
+            try {
+              var form = $('<form/>');
+              form.attr("action", $("#frmScan").attr("action"));
+              form.attr("method", "post");
+              form.attr("enctype", "multipart/form-data");
+              form.attr("encoding", "multipart/form-data");
+              form.attr("target", "postiframe");
+              form.attr("file", $('#userfile').val());
+              form.submit();
+              $("#postiframe").load(function() {
+                iframeContents = $("#postiframe")[0].contentWindow.document.body.innerHTML;
+                var strResponse = iframeContents.substring(iframeContents.indexOf("{"), iframeContents.indexOf("}") + 1);
+                console.log(strResponse);
+                var response = JSON.parse(strResponse);
+                if (response.infected) {
+                  $("#board").html("Virus found!").css({"color": "red"});
+                } else {
+                  $("#board").html("NO virus found!").css({"color": "green"});
+                }
+              });              
+            } catch (e) {
+              console.log(e);
+            }
+            return false;
+
+          });
+
+        });
+      </script>
+
+      <div data-role="footer" data-id="footer" data-position="fixed" data-theme="a">
+        <h6>University Putra Malaysia</h6>
+      </div>
+      <!-- footer -->
+    </div>
+
+  </body>
+</html>

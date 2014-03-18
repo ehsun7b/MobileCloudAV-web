@@ -5,8 +5,6 @@ import com.ehsunbehravesh.mobilecloudav.result.ScanResult;
 import com.sun.jersey.multipart.FormDataParam;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -38,7 +36,7 @@ public class ScanService {
     try {
       byte[] fileContent = IOUtils.toByteArray(is);
       Byte[] objContent = ArrayUtils.toObject(fileContent);
-      ScanResult result = scanner.scanBytes(objContent);
+      ScanResult result = new ScanResult(); //scanner.scanBytes(objContent);
       return result;
     } catch (IOException ex) {
       logger.log(Priority.FATAL, ex.getMessage(), ex);
