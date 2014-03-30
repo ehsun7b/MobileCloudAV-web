@@ -3,14 +3,19 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Mobile Cloud AV</h1>
         
         Test Upload
-        <form action="rest/scanner/scan" method="post" enctype="multipart/form-data">
+        <form id="frmScan" target="_blank" action="rest/scanner/scan" method="post" enctype="multipart/form-data">
           <input type="file" name="file"/>
           <input type="submit" value="Upload"/>
         </form>
+        
+        <script>
+          $("#frmScan").submit(function() {console.log("Timestamp: " + new Date().getTime())});
+        </script>
     </body>
 </html>

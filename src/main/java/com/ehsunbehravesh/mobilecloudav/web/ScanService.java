@@ -36,7 +36,7 @@ public class ScanService {
     try {
       byte[] fileContent = IOUtils.toByteArray(is);
       Byte[] objContent = ArrayUtils.toObject(fileContent);
-      ScanResult result = new ScanResult(); //scanner.scanBytes(objContent);
+      ScanResult result = scanner.scanBytes(objContent);
       return result;
     } catch (IOException ex) {
       logger.log(Priority.FATAL, ex.getMessage(), ex);
