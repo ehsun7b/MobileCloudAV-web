@@ -51,7 +51,7 @@ public class ScanService {
   }
 
   private File writeToFile(String file, InputStream inputStream) {
-    int bufferSize = 1014;
+    int bufferSize = 2048;
     byte[] buffer = new byte[bufferSize];
     int len = 0;
 
